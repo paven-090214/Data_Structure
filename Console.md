@@ -11,13 +11,31 @@
    - GUI (그래픽 화면)
    - 콘솔 (터미널)
 6. 화면에 출력한다. (Output)
+## CPU의 2가지 동작 모드
+- 컴퓨터는 크게 `소프트웨어(S/W)`와 `하드웨어(H/W)`로 구분한다.  
+- CPU의 동장 모드는 `User mode`와 `Kernel mode`로 나뉜다.  
+### user mode
+- User mode에서는 주로 사용자가 작업을 하거나 볼 수 있는 모드이다.
+- VS Code, 크롬, 게임등의 프로그램이 실행된다.
+### Kernel mode
+- Kernel mode에서는 OS가 실행된다.
+- 주로 하드웨어 접근과 같은 권한이 필요한 작업을 수행한다.
+---
+## Hello World.C 실행 과정
+1. Hello World.C파일을 컴파일 하면서 실행파일(exe)이 생성된다.
+2. 그 파일(exe)을 실행하는 순간 운영체제(OS)가 프로세스(Process)를 생성한다. -> "Hello World.exe프로세스가 생성되었다."
+3. 프로세스가 생성된 후 main() -> printf()가 실행된다.
+4. 문자열은 유저 영역 stdio Buffer에 저장된다.
+5. Hello World프로세스는 시스템 콜을 호출한다. -> printf의 내부에서 write()시스템콜을 호출한다.
+- 조건
+   - `\n`을 만난다.
+   - 버퍼가 꽉 찼다.
+   - fflush()
+6. 이제 User mode에서 Kernel mode로 전환되어, 운영체제가 해당 데이터를 출력 장치로 전달한다.
+7. stdio 버퍼에 저장된 데이터가 write() 시스템콜을 통해 커널로 전달되고, 커널이 이를 터미널(콘솔)에 출력한다.
 
-컴퓨터는 크게 소프트웨어(S/W)와 하드웨어(H/W)로 구분한다.
-CPU의 동장 모드는 User mode와 Kernel mode로 나뉜다.
-User mode에서는 VS Code, 크롬, 게임등의 프로그램이 실행된다.
-Kernel mode에서는 OS가 실행되며, 하드웨어 접근과 같은 권한이 필요한 작업을 수행한다.
 
-Hello World라는 문자열 출력 프로그램(프로세스)를 실행
+
 
 kernel mode 내부에 H/W로 갈 수 있도록 만드는 추상화된 인터페이스(파일의 형태를 띔)를 제공함
 
